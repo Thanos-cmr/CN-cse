@@ -1,0 +1,61 @@
+#include <stdio.h>
+#include <string.h>
+
+void main() {
+    int i, j, keylen, msglen;
+    char input[100], key[30], temp[30], quot[100], rem[30], key1[30];
+    printf("Enter Data: ");
+    fgets(input, sizeof(input), stdin); 
+    input[strcspn(input, "\n")] = '\0';
+    printf("Enter Key: ");
+    fgets(key, sizeof(key), stdin);
+    key[strcspn(key, "\n")] = '\0';  
+    keylen = strlen(key);
+    msglen = strlen(input);
+    for (i = 0; i < keylen - 1; i++) {
+        input[msglen + i] = '0';
+    }
+    input[msglen + keylen - 1] = '\0';
+    strcpy(temp, input);
+    for (i = 0; i < msglen; i++) {
+        quot[i] = temp[0];  
+        if (quot[i] == '0') {
+            for (j = 0; j < keylen; j++) {
+                key[j] = '0';
+            }
+        } else {
+            
+            for (j = 0; j < keylen; j++) {
+                key[j] = key1[j];
+            }
+        }
+
+        for (j = 0; j < keylen - 1; j++) {
+            
+            rem[j] = (temp[j] == key[j]) ? '0' : '1';
+        }
+        rem[keylen - 1] = input[i + keylen];  
+        strcpy(temp, rem);
+    }
+
+  
+    printf("\nQuotient is: ");
+    for (i = 0; i < msglen; i++) {
+        printf("%c", quot[i]);
+    }
+
+    printf("\nRemainder is: ");
+    for (i = 0; i < keylen - 1; i++) {
+        printf("%c", rem[i]);
+    }
+
+ 
+    printf("\nFinal data is: ");
+    for (i = 0; i < msglen; i++) {
+        printf("%c", input[i]);
+    }
+    for (i = 0; i < keylen - 1; i++) {
+        printf("%c", rem[i]);
+    }
+    printf("\n");
+}
